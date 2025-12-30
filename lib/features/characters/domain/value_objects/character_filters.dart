@@ -1,4 +1,4 @@
-import 'package:rick_and_morty_app/features/search_characters/domain/entities/character.dart';
+import 'package:rick_and_morty_app/features/characters/domain/entities/character.dart';
 
 final class CharacterSearchCriteria {
   final String? name;

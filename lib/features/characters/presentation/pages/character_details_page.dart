@@ -1,8 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:rick_and_morty_app/features/search_characters/domain/entities/character.dart';
-import 'package:rick_and_morty_app/features/search_characters/presentation/controllers/character_details_controller.dart';
+import 'package:rick_and_morty_app/features/characters/domain/entities/character.dart';
+import 'package:rick_and_morty_app/features/characters/presentation/controllers/character_details_controller.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class CharacterDetailsPage extends ConsumerWidget {

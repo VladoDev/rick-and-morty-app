@@ -1,11 +1,11 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/legacy.dart';
 import 'package:rick_and_morty_app/app/di/service_locator.dart';
-import 'package:rick_and_morty_app/features/search_characters/domain/common/paginated.dart';
-import 'package:rick_and_morty_app/features/search_characters/domain/entities/character.dart';
-import 'package:rick_and_morty_app/features/search_characters/domain/usecases/search_characters_usecase.dart';
-import 'package:rick_and_morty_app/features/search_characters/domain/value_objects/character_filters.dart';
-import 'package:rick_and_morty_app/features/search_characters/presentation/controllers/search_characters_controller.dart';
+import 'package:rick_and_morty_app/features/characters/domain/common/paginated.dart';
+import 'package:rick_and_morty_app/features/characters/domain/entities/character.dart';
+import 'package:rick_and_morty_app/features/characters/domain/usecases/search_characters_usecase.dart';
+import 'package:rick_and_morty_app/features/characters/domain/value_objects/character_filters.dart';
+import 'package:rick_and_morty_app/features/characters/presentation/controllers/search_characters_controller.dart';
 
 final searchCharactersUseCaseProvider = Provider<SearchCharactersUsecase>((
   ref,

@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:rick_and_morty_app/features/search_characters/domain/entities/character.dart';
+import 'package:rick_and_morty_app/features/characters/domain/entities/character.dart';
 
 class CharacterCard extends StatelessWidget {
   final Character character;

@@ -2,10 +2,10 @@ import 'package:flutter_riverpod/legacy.dart';
 
 import 'package:rick_and_morty_app/core/errors/app_exception.dart';
 
-import 'package:rick_and_morty_app/features/search_characters/domain/common/paginated.dart';
-import 'package:rick_and_morty_app/features/search_characters/domain/entities/character.dart';
-import 'package:rick_and_morty_app/features/search_characters/domain/usecases/search_characters_usecase.dart';
-import 'package:rick_and_morty_app/features/search_characters/presentation/state/search_characters_state.dart';
+import 'package:rick_and_morty_app/features/characters/domain/common/paginated.dart';
+import 'package:rick_and_morty_app/features/characters/domain/entities/character.dart';
+import 'package:rick_and_morty_app/features/characters/domain/usecases/search_characters_usecase.dart';
+import 'package:rick_and_morty_app/features/characters/presentation/state/search_characters_state.dart';
 
 class SearchCharactersController extends StateNotifier<SearchCharactersState> {
   final SearchCharactersUsecase _useCase;

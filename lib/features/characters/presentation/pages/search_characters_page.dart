@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:rick_and_morty_app/features/search_characters/domain/entities/character.dart';
-import 'package:rick_and_morty_app/features/search_characters/presentation/state/search_characters_state.dart';
-import 'package:rick_and_morty_app/features/search_characters/presentation/widgets/character_card.dart';
-import 'package:rick_and_morty_app/features/search_characters/presentation/widgets/search_characters_search_bar.dart';
+import 'package:rick_and_morty_app/features/characters/domain/entities/character.dart';
+import 'package:rick_and_morty_app/features/characters/presentation/state/search_characters_state.dart';
+import 'package:rick_and_morty_app/features/characters/presentation/widgets/character_card.dart';
+import 'package:rick_and_morty_app/features/characters/presentation/widgets/search_characters_search_bar.dart';
 
 class SearchCharactersPage extends ConsumerWidget {
   const SearchCharactersPage({super.key});

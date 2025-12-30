@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:rick_and_morty_app/core/network/api_constants.dart';
-import 'package:rick_and_morty_app/features/search_characters/domain/value_objects/character_filters.dart';
+import 'package:rick_and_morty_app/features/characters/domain/value_objects/character_filters.dart';
 
 class CharactersRemoteDatasource {
   final Dio _dio;

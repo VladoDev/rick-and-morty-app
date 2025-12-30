@@ -5,15 +5,15 @@ import 'package:dio/dio.dart';
 import 'package:rick_and_morty_app/core/errors/app_exception.dart';
 import 'package:rick_and_morty_app/core/network/dio_error_mapper.dart';
 import 'package:rick_and_morty_app/core/result/result.dart';
-import 'package:rick_and_morty_app/features/search_characters/data/datasources/remote/characters_remote_datasource.dart';
+import 'package:rick_and_morty_app/features/characters/data/datasources/remote/characters_remote_datasource.dart';
 
-import 'package:rick_and_morty_app/features/search_characters/domain/common/paginated.dart';
-import 'package:rick_and_morty_app/features/search_characters/domain/entities/character.dart';
-import 'package:rick_and_morty_app/features/search_characters/domain/repositories/character_repository.dart';
-import 'package:rick_and_morty_app/features/search_characters/domain/value_objects/character_filters.dart';
+import 'package:rick_and_morty_app/features/characters/domain/common/paginated.dart';
+import 'package:rick_and_morty_app/features/characters/domain/entities/character.dart';
+import 'package:rick_and_morty_app/features/characters/domain/repositories/character_repository.dart';
+import 'package:rick_and_morty_app/features/characters/domain/value_objects/character_filters.dart';
 
-import 'package:rick_and_morty_app/features/search_characters/data/dtos/character_dto.dart';
-import 'package:rick_and_morty_app/features/search_characters/data/mappers/character_mapper.dart';
+import 'package:rick_and_morty_app/features/characters/data/dtos/character_dto.dart';
+import 'package:rick_and_morty_app/features/characters/data/mappers/character_mapper.dart';
 
 final class CharacterRepositoryImpl implements CharacterRepository {
   final CharactersRemoteDatasource _remote;
