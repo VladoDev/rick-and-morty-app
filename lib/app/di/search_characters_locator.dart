@@ -4,6 +4,7 @@ import 'package:rick_and_morty_app/features/search_characters/data/datasources/r
 import 'package:rick_and_morty_app/features/search_characters/data/repositories/character_repository_impl.dart';
 import 'package:rick_and_morty_app/features/search_characters/domain/repositories/character_repository.dart';
 import 'package:rick_and_morty_app/features/search_characters/domain/usecases/search_characters_usecase.dart';
+import 'package:rick_and_morty_app/features/search_characters/presentation/controllers/character_details_controller.dart';
 
 void registerSearchCharacters(GetIt sl) {
   sl.registerLazySingleton(() => CharactersRemoteDatasource(sl<Dio>()));
@@ -12,5 +13,8 @@ void registerSearchCharacters(GetIt sl) {
   );
   sl.registerLazySingleton<SearchCharactersUsecase>(
     () => SearchCharactersUsecase(sl<CharacterRepository>()),
+  );
+  sl.registerFactory<CharacterDetailsController>(
+    () => CharacterDetailsController(),
   );
 }

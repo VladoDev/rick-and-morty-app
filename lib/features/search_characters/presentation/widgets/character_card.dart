@@ -1,10 +1,16 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:rick_and_morty_app/features/search_characters/domain/entities/character.dart';
 
 class CharacterCard extends StatelessWidget {
   final Character character;
+  final VoidCallback onCharacterTap;
 
-  const CharacterCard({super.key, required this.character});
+  const CharacterCard({
+    super.key,
+    required this.character,
+    required this.onCharacterTap,
+  });
 
   String _statusText(CharacterStatus s) {
     switch (s) {
@@ -38,29 +44,51 @@ class CharacterCard extends StatelessWidget {
       '${_statusText(character.status)} • ${_genderText(character.gender)}',
     ].whereType<String>().join(' • ');
 
-    return Card(
-      margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-      child: ListTile(
-        leading: ClipRRect(
-          borderRadius: BorderRadius.circular(8),
-          child: Image.network(
-            character.image.toString(),
-            width: 56,
-            height: 56,
-            fit: BoxFit.cover,
-            errorBuilder: (_, __, ___) => const SizedBox(
-              width: 56,
-              height: 56,
-              child: Icon(Icons.broken_image),
+    return GestureDetector(
+      onTap: () {
+        onCharacterTap.call();
+      },
+      child: Card(
+        margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+        child: ListTile(
+          leading: ClipRRect(
+            borderRadius: BorderRadius.circular(8),
+            child: Hero(
+              tag: "character-image-${character.id}",
+              child: Material(
+                color: Colors.transparent,
+                child: CachedNetworkImage(
+                  imageUrl: character.image.toString(),
+                  width: 56,
+                  height: 56,
+                  fit: BoxFit.cover,
+                  errorWidget: (_, _, _) => const SizedBox(
+                    width: 56,
+                    height: 56,
+                    child: Icon(Icons.broken_image),
+                  ),
+                ),
+              ),
             ),
           ),
+          title: Text(character.name),
+          subtitle: Text(subtitle),
+          trailing:
+              character.gender.name ==
+                  "male" //todo add fav validation
+              ? GestureDetector(
+                  onTap: () {
+                    print("No fav tap");
+                  },
+                  child: Icon(Icons.star_border),
+                )
+              : GestureDetector(
+                  onTap: () {
+                    print("Fav tap");
+                  },
+                  child: Icon(Icons.star, color: Colors.amber),
+                ),
         ),
-        title: Text(character.name),
-        subtitle: Text(subtitle),
-        trailing:
-            false //todo add fav validation
-            ? Icon(Icons.star_border)
-            : Icon(Icons.star, color: Colors.amber),
       ),
     );
   }

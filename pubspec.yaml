@@ -39,6 +39,8 @@ dependencies:
   dio: ^5.9.0
   flutter_riverpod: ^3.1.0
   skeletonizer: ^2.1.2
+  cached_network_image: ^3.4.1
+  url_launcher: ^6.3.2
 
 dev_dependencies:
   flutter_test:

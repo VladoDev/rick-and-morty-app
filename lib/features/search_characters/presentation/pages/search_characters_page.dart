@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:rick_and_morty_app/features/search_characters/presentation/controllers/search_characters_controller.dart';
+import 'package:go_router/go_router.dart';
+import 'package:rick_and_morty_app/features/search_characters/domain/entities/character.dart';
+import 'package:rick_and_morty_app/features/search_characters/presentation/state/search_characters_state.dart';
 import 'package:rick_and_morty_app/features/search_characters/presentation/widgets/character_card.dart';
 import 'package:rick_and_morty_app/features/search_characters/presentation/widgets/search_characters_search_bar.dart';
-import 'package:skeletonizer/skeletonizer.dart';
 
 class SearchCharactersPage extends ConsumerWidget {
   const SearchCharactersPage({super.key});
@@ -13,41 +14,39 @@ class SearchCharactersPage extends ConsumerWidget {
     final state = ref.watch(searchCharactersControllerProvider);
     final controller = ref.read(searchCharactersControllerProvider.notifier);
 
-    return Skeletonizer(
-      child: Column(
-        children: [
-          SearchCharactersSearchBar(
-            initialValue: state.query,
+    return Column(
+      children: [
+        SearchCharactersSearchBar(
+          initialValue: state.query,
+          isLoading: state.isLoading,
+          onChanged: controller.setQuery,
+          onSubmitted: (_) => controller.search(reset: true),
+          onSearchPressed: () => controller.search(reset: true),
+        ),
+        if (state.errorMessage != null)
+          MaterialBanner(
+            content: Text(state.errorMessage!),
+            actions: [
+              TextButton(
+                onPressed: controller.retry,
+                child: const Text('Retry'),
+              ),
+              TextButton(
+                onPressed: () =>
+                    ScaffoldMessenger.of(context).hideCurrentMaterialBanner(),
+                child: const Text('Dismiss'),
+              ),
+            ],
+          ),
+        Expanded(
+          child: _Body(
             isLoading: state.isLoading,
-            onChanged: controller.setQuery,
-            onSubmitted: (_) => controller.search(reset: true),
-            onSearchPressed: () => controller.search(reset: true),
+            items: state.items,
+            hasNext: state.hasNextPage,
+            onLoadMore: controller.loadNextPage,
           ),
-          if (state.errorMessage != null)
-            MaterialBanner(
-              content: Text(state.errorMessage!),
-              actions: [
-                TextButton(
-                  onPressed: controller.retry,
-                  child: const Text('Retry'),
-                ),
-                TextButton(
-                  onPressed: () =>
-                      ScaffoldMessenger.of(context).hideCurrentMaterialBanner(),
-                  child: const Text('Dismiss'),
-                ),
-              ],
-            ),
-          Expanded(
-            child: _Body(
-              isLoading: state.isLoading,
-              items: state.items,
-              hasNext: state.hasNextPage,
-              onLoadMore: controller.loadNextPage,
-            ),
-          ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
@@ -117,7 +116,16 @@ class _BodyState extends State<_Body> {
       itemCount: widget.items.length + 1,
       itemBuilder: (context, index) {
         if (index < widget.items.length) {
-          return CharacterCard(character: widget.items[index]);
+          Character character = widget.items[index];
+          return CharacterCard(
+            character: character,
+            onCharacterTap: () {
+              context.push(
+                "/search-characters/${character.id}",
+                extra: character,
+              );
+            },
+          );
         }
 
         if (!widget.hasNext) {
