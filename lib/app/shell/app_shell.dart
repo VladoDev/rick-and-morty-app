@@ -52,7 +52,7 @@ class AppShell extends StatelessWidget {
             destinations: [
               NavigationDestination(icon: Icon(Icons.search), label: "Search"),
               NavigationDestination(
-                icon: Icon(Icons.favorite),
+                icon: Icon(Icons.star, color: Colors.amber),
                 label: "Favorites",
               ),
             ],
