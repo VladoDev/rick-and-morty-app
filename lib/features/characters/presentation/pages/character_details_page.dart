@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rick_and_morty_app/features/characters/domain/entities/character.dart';
 import 'package:rick_and_morty_app/features/characters/presentation/controllers/character_details_controller.dart';
+import 'package:rick_and_morty_app/features/characters/presentation/controllers/favorites_controller.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class CharacterDetailsPage extends ConsumerWidget {
@@ -49,11 +50,11 @@ class CharacterDetailsPage extends ConsumerWidget {
       if (!ok && context.mounted) {
         ScaffoldMessenger.of(
           context,
-        ).showSnackBar(SnackBar(content: Text('No se pudo abrir: $uri')));
+        ).showSnackBar(SnackBar(content: Text('Could not open: $uri')));
       }
     }
 
-    const bool isFavorite = false; // TODO: conectar a riverpod
+    final isFav = ref.watch(isFavoriteProvider(c.id));
     return SafeArea(
       child: CustomScrollView(
         slivers: [
@@ -94,15 +95,16 @@ class CharacterDetailsPage extends ConsumerWidget {
                               overflow: TextOverflow.ellipsis,
                             ),
                             IconButton(
-                              tooltip: isFavorite
-                                  ? 'Quitar de favoritos'
-                                  : 'Agregar a favoritos',
+                              tooltip: isFav
+                                  ? 'Remove from favorites'
+                                  : 'Add to favorites',
                               icon: Icon(
-                                isFavorite ? Icons.star : Icons.star_border,
+                                isFav ? Icons.star : Icons.star_border,
                               ),
-                              onPressed: () {
-                                // TODO: implementar toggle favorito (Riverpod/controller)
-                              },
+                              color: isFav ? Colors.amber : null,
+                              onPressed: () => ref
+                                  .read(favoritesControllerProvider.notifier)
+                                  .toggle(c),
                             ),
                           ],
                         ),
@@ -133,11 +135,11 @@ class CharacterDetailsPage extends ConsumerWidget {
             padding: const EdgeInsets.symmetric(horizontal: 16),
             sliver: SliverToBoxAdapter(
               child: _InfoCard(
-                title: 'Origen',
-                subtitle: 'Lugar de origen del personaje',
+                title: 'Origin',
+                subtitle: 'Where the character originated',
                 leading: Icons.public,
                 content: c.origin.name,
-                trailingText: c.origin.uri == null ? null : 'Ver',
+                trailingText: c.origin.uri == null ? null : '',
                 onTap: c.origin.uri == null ? null : () {},
               ),
             ),
@@ -147,11 +149,11 @@ class CharacterDetailsPage extends ConsumerWidget {
             padding: const EdgeInsets.fromLTRB(16, 12, 16, 0),
             sliver: SliverToBoxAdapter(
               child: _InfoCard(
-                title: 'Última ubicación conocida',
-                subtitle: 'Ubicación actual según el API',
+                title: 'Last known location',
+                subtitle: 'Current location according to the API',
                 leading: Icons.place,
                 content: c.location.name,
-                trailingText: c.location.uri == null ? null : 'Ver',
+                trailingText: c.location.uri == null ? null : '',
                 onTap: c.location.uri == null ? null : () {},
               ),
             ),
@@ -163,7 +165,7 @@ class CharacterDetailsPage extends ConsumerWidget {
               child: Row(
                 children: [
                   Text(
-                    'Episodios',
+                    'Episodes',
                     style: Theme.of(context).textTheme.titleLarge,
                   ),
                   const SizedBox(width: 8),
@@ -178,7 +180,7 @@ class CharacterDetailsPage extends ConsumerWidget {
 
           SliverList.separated(
             itemCount: c.episodesUrls.length,
-            separatorBuilder: (_, __) => const Divider(height: 1),
+            separatorBuilder: (_, _) => const Divider(height: 1),
             itemBuilder: (context, index) {
               final uri = c.episodesUrls[index];
               return ListTile(

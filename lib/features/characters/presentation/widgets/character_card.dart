@@ -1,8 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rick_and_morty_app/features/characters/domain/entities/character.dart';
+import 'package:rick_and_morty_app/features/characters/presentation/controllers/favorites_controller.dart';
 
-class CharacterCard extends StatelessWidget {
+class CharacterCard extends ConsumerWidget {
   final Character character;
   final VoidCallback onCharacterTap;
 
@@ -37,7 +39,8 @@ class CharacterCard extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final isFav = ref.watch(isFavoriteProvider(character.id));
     final subtitle = [
       character.species.trim().isEmpty ? null : character.species,
       character.type.trim().isEmpty ? null : character.type,
@@ -73,21 +76,13 @@ class CharacterCard extends StatelessWidget {
           ),
           title: Text(character.name),
           subtitle: Text(subtitle),
-          trailing:
-              character.gender.name ==
-                  "male" //todo add fav validation
-              ? GestureDetector(
-                  onTap: () {
-                    print("No fav tap");
-                  },
-                  child: Icon(Icons.star_border),
-                )
-              : GestureDetector(
-                  onTap: () {
-                    print("Fav tap");
-                  },
-                  child: Icon(Icons.star, color: Colors.amber),
-                ),
+          trailing: IconButton(
+            icon: Icon(isFav ? Icons.star : Icons.star_border),
+            color: isFav ? Colors.amber : null,
+            onPressed: () => ref
+                .read(favoritesControllerProvider.notifier)
+                .toggle(character),
+          ),
         ),
       ),
     );
