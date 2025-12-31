@@ -55,7 +55,7 @@ class SearchCharactersPage extends ConsumerWidget {
 
 class _Body extends StatefulWidget {
   final bool isLoading;
-  final List<dynamic> items;
+  final List<Character> items;
   final bool hasNext;
   final VoidCallback onLoadMore;
 
@@ -118,7 +118,7 @@ class _BodyState extends State<_Body> {
       itemCount: widget.items.length + 1,
       itemBuilder: (context, index) {
         if (index < widget.items.length) {
-          Character character = widget.items[index];
+          final character = widget.items[index];
           return CharacterCard(
             character: character,
             onCharacterTap: () {

@@ -1,16 +1,32 @@
-# rick_and_morty_app
+# Rick and Morty App
 
-A new Flutter project.
+App Flutter para explorar personajes, ver detalles y gestionar favoritos a partir de la API de Rick y Morty.
 
-## Getting Started
+## Requisitos
+- Flutter >= 3.10.0
+- Dart >= 3.10.0
+- Android SDK (Android Studio / command-line tools)
+- Xcode + CocoaPods (para iOS)
 
-This project is a starting point for a Flutter application.
+## Ejecución
+```bash
+flutter pub get
+flutter run
+```
 
-A few resources to get you started if this is your first Flutter project:
+Plataformas soportadas
+Android: API 21+ (Android 5.0+), teléfono y tablet
+iOS: 11.0+, iPhone y iPad
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+Arquitectura y librerías
+Clean Architecture: escalabilidad y separación clara de responsabilidades.
+Riverpod: estado simple y fácil de entender para equipos mixtos.
+Sqflite: base de datos local con consultas SQL.
+GoRouter: navegación declarativa estándar en Flutter.
+GetIt: service locator centralizado para inyección de dependencias.
+CachedNetworkImage: cache de imágenes y soporte para hero animation.
+Url Launcher: abrir URLs recibidas desde la API.
+Dio: cliente HTTP para consumo de API.
+Testing: mocktail, network_image_mock y sqflite_common_ffi para mocks.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+
