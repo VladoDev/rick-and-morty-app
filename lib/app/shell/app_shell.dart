@@ -14,7 +14,8 @@ class AppShell extends StatelessWidget {
   });
 
   String _title() {
-    if (location.startsWith("/search/") && location != "/search") {
+    if (location.startsWith("/search-characters/") &&
+        location != "/search-characters") {
       return "Search Characters";
     } else if (location.startsWith("/favorites")) {
       return "Favorite Characters";
@@ -29,7 +30,11 @@ class AppShell extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final showBack = location.startsWith("/search/") && location != "/search";
+    final showBack =
+        location.startsWith("/search-characters/") &&
+            location != "/search-characters" ||
+        location.startsWith("/favorite-characters/") &&
+            location != "/favorite-characters";
 
     return AnimatedBuilder(
       animation: themeController,
@@ -37,7 +42,7 @@ class AppShell extends StatelessWidget {
         return Scaffold(
           appBar: AppBar(
             title: Text(_title()),
-            leading: showBack ? BackButton(onPressed: () => context.pop) : null,
+            leading: showBack ? BackButton(onPressed: context.pop) : null,
             actions: [
               IconButton(
                 onPressed: themeController.toogle,

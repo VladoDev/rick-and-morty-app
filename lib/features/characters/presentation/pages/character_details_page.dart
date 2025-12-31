@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:path/path.dart';
 import 'package:rick_and_morty_app/features/characters/domain/entities/character.dart';
 import 'package:rick_and_morty_app/features/characters/presentation/controllers/character_details_controller.dart';
 import 'package:rick_and_morty_app/features/characters/presentation/controllers/favorites_controller.dart';
@@ -88,11 +89,15 @@ class CharacterDetailsPage extends ConsumerWidget {
                       children: [
                         Row(
                           children: [
-                            Text(
-                              c.name,
-                              style: Theme.of(context).textTheme.headlineSmall,
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
+                            Expanded(
+                              child: Text(
+                                c.name,
+                                style: Theme.of(
+                                  context,
+                                ).textTheme.headlineSmall,
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                              ),
                             ),
                             IconButton(
                               tooltip: isFav
