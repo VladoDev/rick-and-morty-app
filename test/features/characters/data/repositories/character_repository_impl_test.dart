@@ -55,7 +55,6 @@ void main() {
 
       expect(result, isA<Err<Paginated<Character>>>());
 
-      // Validación de mensaje (sin depender de nombres exactos del campo en Err)
       final err = result as dynamic;
       final ex = (err.exception ?? err.error ?? err.ex) as Object?;
       expect(ex, isA<AppException>());
@@ -126,7 +125,7 @@ void main() {
       final c = paginated.results.single;
 
       expect(c.id, 1);
-      expect(c.name, 'Rick Sanchez'); // trim aplicado por mapper
+      expect(c.name, 'Rick Sanchez');
       expect(c.status, CharacterStatus.alive);
       expect(c.species, 'Human');
       expect(c.gender, CharacterGender.male);
@@ -218,8 +217,8 @@ void main() {
         'info': {
           'count': 0,
           'pages': 0,
-          'next': '::::not-a-url::::', // Uri.tryParse -> null
-          'prev': '   ', // blank -> null
+          'next': '::::not-a-url::::',
+          'prev': '   ',
         },
         'results': const [],
       };

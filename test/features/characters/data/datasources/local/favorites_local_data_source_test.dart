@@ -76,7 +76,7 @@ void main() {
       'upsert replaces existing row when same id is inserted again',
       () async {
         await sut.upsert(_row(id: 1, name: 'Rick Sanchez'));
-        await sut.upsert(_row(id: 1, name: 'Morty Smith')); // mismo id
+        await sut.upsert(_row(id: 1, name: 'Morty Smith'));
 
         final rows = await sut.getFavoritesRows();
 

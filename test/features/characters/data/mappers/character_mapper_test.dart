@@ -36,7 +36,7 @@ void main() {
         expect(entity.name, 'Rick Sanchez');
         expect(entity.status, CharacterStatus.alive);
         expect(entity.species, 'Human');
-        expect(entity.type, ''); // venía con espacios
+        expect(entity.type, '');
         expect(entity.gender, CharacterGender.male);
 
         expect(entity.origin.name, 'Earth');

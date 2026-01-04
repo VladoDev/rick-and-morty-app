@@ -62,7 +62,7 @@ void main() {
         const CharacterSearchCriteria(
           page: 1,
           name: '  Rick  ',
-          species: '   ', // debe omitirse
+          species: '   ',
           type: '  Human  ',
         ),
       );

@@ -32,7 +32,6 @@ void main() {
 
       final db = await sut.database;
 
-      // Verifica que la tabla exista
       final tables = await db.query(
         'sqlite_master',
         where: 'type = ? AND name = ?',
